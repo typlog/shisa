@@ -1,0 +1,43 @@
+{
+  "name": "shisa",
+  "version": "0.0.1",
+  "description": "Build your own podcast player with desired structure and styles.",
+  "main": "./src/main.js",
+  "scripts": {
+    "test": "test",
+    "dev": "parcel serve ./dist/index.html -d parcel",
+    "lint": "eslint --fix src"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jessuni/shisa.git"
+  },
+  "keywords": [
+    "podcast",
+    "html5audio",
+    "audio",
+    "player",
+    "shikwasa",
+    "shisa",
+    "library",
+    "playback"
+  ],
+  "author": {
+    "name": "Jessuni",
+    "email": "jessunix@gmail.com"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/jessuni/shisa/issues"
+  },
+  "homepage": "https://github.com/jessuni/shisa#readme",
+  "devDependencies": {
+    "autoprefixer": "^9.7.1",
+    "eslint": "^6.6.0",
+    "parcel-bundler": "^1.12.4"
+  },
+  "browserslist": [
+    "last 1 version",
+    "> 1%"
+  ]
+}
