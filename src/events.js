@@ -7,12 +7,10 @@ export default class Events {
   on(name, callback) {
     if (!this.audioEvents.includes(name) || typeof callback !== 'function') {
       console.error('invalid event name or callback function')
-    } else {
-      if (!this.events[name]) {
-        this.events[name] = []
-      }
-      this.events[name].push(callback)
+    } else if (!this.events[name]) {
+      this.events[name] = []
     }
+    this.events[name].push(callback)
   }
 
   trigger(name, data = {}) {
