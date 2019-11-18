@@ -1,5 +1,5 @@
 export default function play(el, audio, ctx) {
-  const name = 'data-shisa-play'
+  const name = 'data-play'
   el.addEventListener('click', () => toggle())
 
   ctx.on('play', () => {

@@ -1,10 +1,10 @@
 const _CONFIG = {
   seekable: true,
-  hasBuffer: true,
+  showBuffer: true,
 }
 
 export default function progress(el, audio, ctx, options = {}) {
-  const name = 'data-shisa-progress'
+  const name = 'data-progress'
   handleOptions(options)
 
   let barPlayed = el.querySelector(`progress[${name}-played]`)

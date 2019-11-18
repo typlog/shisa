@@ -4,27 +4,19 @@ const _CONFIG = {
 }
 
 export default function seek(el, audio, ctx, options = {}) {
-  const name = 'data-shisa-seek'
-  const seekForward = el.querySelector(`[${name}-forward]`)
-  const seekBackward = el.querySelector(`[${name}-backward]`)
+  const attr = Array.from(el.attributes).find(v => {
+    return /data-seek-/.test(v.name)
+  })
+  if (!attr) return
+  const direction = attr.name.slice(10)
+  let step = attr.value
 
-  if (seekForward) {
-    let forwardTime = seekForward.getAttribute(`${name}-forward`)
-    forwardTime = forwardTime && !isNaN(+forwardTime) ? +forwardTime : options.forward || _CONFIG.forward
-    seekForward.setAttribute(`${name}-forward`, forwardTime)
-
-    seekForward.addEventListener('click', () => {
-      ctx.seek(ctx.currentTime + forwardTime)
-    })
-  }
-
-  if (seekBackward) {
-    let backwardTime = seekBackward.getAttribute(`${name}-backward`)
-    backwardTime = backwardTime && !isNaN(+backwardTime) ? +backwardTime : options.backward || _CONFIG.backward
-    seekBackward.setAttribute(`${name}-backward`, backwardTime)
-
-    seekBackward.addEventListener('click', () => {
-      ctx.seek(ctx.currentTime - backwardTime)
+  if (direction === 'forward' || direction === 'backward') {
+    step = step && !isNaN(+step) ? +step : options[direction] || _CONFIG[direction]
+    attr.value = step
+    step = direction === 'forward' ? step : - step
+    el.addEventListener('click', () => {
+      ctx.seek(ctx.currentTime + step)
     })
   }
 }

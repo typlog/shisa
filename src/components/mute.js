@@ -1,5 +1,5 @@
 export default function mute(el, audio, ctx) {
-  const name = 'data-shisa-muted'
+  const name = 'data-muted'
   let muted = el.getAttribute(name)
   if (muted === '') {
     ctx.muted = true

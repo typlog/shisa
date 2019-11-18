@@ -1,20 +1,25 @@
 export default function controlTime(el, audio, ctx) {
-  const name = 'data-shisa-time'
-  const current = el.querySelector(`[${name}-current]`)
-  const duration = el.querySelector(`[${name}-duration]`)
+  const attr = Array.from(el.attributes).find(v => {
+    return /data-time-/.test(v.name)
+  })
+  if (!attr) return
 
-  if (current) {
-    current.setAttribute(`${name}-current`, '00:00')
+  const type = attr.name.slice(10)
+  if (type === 'current') {
+    attr.value = el.textContent = secondToTime(ctx.currentTime)
     ctx.on('timeupdate', () => {
-      current.setAttribute(`${name}-current`, secondToTime(ctx.currentTime))
+      attr.value = el.textContent = secondToTime(ctx.currentTime)
     })
-  }
-
-  if (duration) {
-    duration.setAttribute(`${name}-duration`, '--:--')
+  } else if (type === 'duration') {
+    attr.value = el.textContent = '--:--'
     ctx.on('loadedmetadata', () => {
       if (ctx.metadataIsFetched && ctx.duration) {
-        duration.setAttribute(`${name}-duration`, secondToTime(ctx.duration))
+        attr.value = el.textContent = secondToTime(ctx.duration)
+      }
+    })
+    ctx.on('durationchange', () => {
+      if (ctx.duration !== -1) {
+        attr.value = el.textContent = secondToTime(ctx.duration)
       }
     })
   }

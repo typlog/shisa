@@ -1,5 +1,5 @@
 export default function buffering(el, audio, ctx) {
-  const name = 'data-shisa-buffering'
+  const name = 'data-buffering'
   ctx.on('canplaythrough', () => {
     el.removeAttribute(name)
   })
