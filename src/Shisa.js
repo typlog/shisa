@@ -38,13 +38,6 @@ class Shisa {
     this.initEvents()
   }
 
-  register(name, fn, options) {
-    if (!fn) {
-      throw new Error(`Component ${name} is not properly registered.`)
-    }
-    COMPS[name] = () => { fn(options) }
-  }
-
   render(el, src) {
     this.el = el
     this.initAudioConfigs(this.el, this.audio)
@@ -138,6 +131,15 @@ class Shisa {
   pause() {
     if (this.audio.paused) return
     this.audio.pause()
+  }
+}
+
+Shisa.register = function(name, fn, options) {
+  if (!fn) {
+    throw new Error(`Component ${name} is not properly registered.`)
+  }
+  COMPS[name] = (el, audio, ctx) => {
+    fn(el, audio, ctx, options)
   }
 }
 
