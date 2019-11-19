@@ -4,6 +4,9 @@
   "description": "Build your own podcast player with desired structure and styles.",
   "main": "./src/main.js",
   "scripts": {
+    "build": "npm run build:iife && npm run build:cjs",
+    "build:iife": "FORMAT=iife rollup -c",
+    "build:cjs": "FORMAT=cjs rollup -c",
     "test": "test",
     "dev": "parcel serve ./dist/index.html -d parcel",
     "lint": "eslint --fix src"
@@ -32,12 +35,17 @@
   },
   "homepage": "https://github.com/jessuni/shisa#readme",
   "devDependencies": {
+    "@rollup/plugin-replace": "^2.2.1",
     "autoprefixer": "^9.7.1",
     "eslint": "^6.6.0",
-    "parcel-bundler": "^1.12.4"
+    "parcel-bundler": "^1.12.4",
+    "rollup": "^1.27.2",
+    "rollup-plugin-babel-minify": "^9.1.1",
+    "rollup-plugin-postcss": "^2.0.3"
   },
   "browserslist": [
     "last 1 version",
     "> 1%"
-  ]
+  ],
+  "dependencies": {}
 }

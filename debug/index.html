@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Shisa demo</title>
+  <link rel="stylesheet" href="index.css">
+</head>
+<body>
+  <div class="player" data-preload="none">
+    <div cla>
+      <button data-shisa="play" data-play>play/pause</button>
+    </div>
+    <div class="mute">
+      <button data-shisa="mute">mute</button>
+    </div>
+    <div class="speed">
+      <button data-shisa="speed" data-speed-max="3" data-speed-min="1" data-speed-step="0.5">speed</button>
+      <button data-shisa="speed" data-speed-max="5" data-speed-min="3" data-speed-step="1">speed</button>
+    </div>
+    <div class="status">
+      <div data-shisa="buffering">buffering</div>
+    </div>
+    <div class="seek">
+      <button data-shisa="seek" data-seek-forward="30">+30s</button>
+      <button data-shisa="seek" data-seek-backward="15">-30s</button>
+    </div>
+    <div data-shisa="progress"></div>
+    <div class="time">
+      <span data-shisa="time" data-time-current></span>
+      <span data-shisa="time" data-time-duration></span>
+    </div>
+  </div>
+  <script src="./index.js"></script>
+</body>
+</html>
