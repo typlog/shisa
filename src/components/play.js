@@ -1,15 +1,19 @@
-export default function play(el, audio, ctx) {
+export default function play(el, shisa) {
   const name = 'data-play'
   el.addEventListener('click', () => toggle())
 
-  ctx.on('play', () => {
+  shisa.on('play', () => {
     el.setAttribute(name, 'play')
+    shisa.el.classList.add('shisa_play')
+    shisa.el.classList.remove('shisa_pause')
   })
-  ctx.on('pause', () => {
+  shisa.on('pause', () => {
     el.setAttribute(name, 'pause')
+    shisa.el.classList.add('shisa_pause')
+    shisa.el.classList.remove('shisa_play')
   })
 
   function toggle() {
-    audio.paused ? ctx.play() : ctx.pause()
+    shisa.audio.paused ? shisa.play() : shisa.pause()
   }
 }

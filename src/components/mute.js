@@ -1,13 +1,14 @@
-export default function mute(el, audio, ctx) {
+export default function mute(el, shisa) {
   const name = 'data-muted'
   let muted = el.getAttribute(name)
   if (muted === '') {
-    ctx.muted = true
-
+    shisa.muted = true
+    shisa.el.classList.add('shisa_muted')
   }
 
   el.addEventListener('click', () => {
-    ctx.muted = !ctx.muted
-    ctx.muted ? el.setAttribute(name, '') : el.removeAttribute(name)
+    shisa.muted = !shisa.muted
+    shisa.muted ? el.setAttribute(name, '') : el.removeAttribute(name)
+    shisa.el.classList.toggle('shisa_muted')
   })
 }

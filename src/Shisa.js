@@ -7,7 +7,7 @@ import time from './components/time'
 import seek from './components/seek'
 import progress from './components/progress'
 
-const COMPS = {
+const BUILTIN_COMPS = {
   play,
   mute,
   speed,
@@ -17,7 +17,9 @@ const COMPS = {
   progress,
 }
 
-const audioConfig = {
+const REGISTERED_COMPS = {}
+
+const DEFAULT_AUDIO_CONFIG = {
   preload: 'metadata',
   autoplay: false,
   defaultMuted: false,
@@ -25,53 +27,59 @@ const audioConfig = {
 }
 
 class Shisa {
-  constructor(options = {}) {
-    this.options = options || audioConfig
+  constructor(el, src, options = {}) {
+    this.el = el
+    this.el.classList.add('shisa')
     this.events = new Events()
     this.audio = new Audio()
+    this.audio.src = src
     this.metadataIsFetched = false
+    this._initOptions(options)
+    this._clearDOM()
+
+    const els = this.el.querySelectorAll('[data-shisa]')
+    for (let i = 0; i < els.length; i++) {
+      this._renderComponent(els[i], this.audio)
+    }
+
+    this._initEvents()
     this.events.audioEvents.forEach(name => {
       this.audio.addEventListener(name, (e) => {
         this.events.trigger(name, e)
       })
     })
-    this.initEvents()
   }
 
-  render(el, src) {
-    this.el = el
-    this.initAudioConfigs(this.el, this.audio)
-    this.audio.src = src
-
-    const els = el.querySelectorAll('[data-shisa]')
-    for (let i = 0; i< els.length; i++) {
-      this.renderComponent(els[i], this.audio)
-    }
-  }
-
-  renderComponent(el, audio) {
+  _renderComponent(el) {
     const name = el.getAttribute('data-shisa')
-    const fn = COMPS[name]
+    const fn = BUILTIN_COMPS[name] || REGISTERED_COMPS[name]
     if (fn) {
-      fn(el, audio, this)
+      fn(el, this)
     }
+  }
+
+  _initOptions(options) {
+    this.audio.preload = options.preload || DEFAULT_AUDIO_CONFIG.preload
+    this.audio.autoplay = options.autoplay || DEFAULT_AUDIO_CONFIG.autoplay
+    this.audio.defaultMuted = options.defaultMuted || DEFAULT_AUDIO_CONFIG.defaultMuted
+    this.audio.defaultPlaybackRate = options.defaultPlaybackRate || DEFAULT_AUDIO_CONFIG.defaultPlaybackRate
+  }
+
+  _clearDOM() {
+    const els = this.el.querySelectorAll('audio')
+    for (let i = 0; i < els.length; i++) {
+      els[i].remove()
+    }
+  }
+
+  _initEvents() {
+    this.on('loadedmetadata', () => {
+      this.metadataIsFetched = true
+    })
   }
 
   on(name, callback) {
     this.events.on(name, callback)
-  }
-
-  initAudioConfigs() {
-    this.audio.preload = this.el.getAttribute('data-shisa-preload') || this.options.preload || audioConfig.preload
-    this.audio.autoplay = this.el.getAttribute('data-shisa-autoplay') || this.options.autoplay || audioConfig.autoplay
-    this.audio.defaultMuted = this.el.getAttribute('data-shisa-defaultMuted') || this.options.defaultMuted || audioConfig.defaultMuted
-    this.audio.defaultPlaybackRate = this.el.getAttribute('data-shisa-defaultPlaybackRate') || this.options.defaultPlaybackRate || audioConfig.defaultPlaybackRate
-  }
-
-  initEvents() {
-    this.on('loadedmetadata', () => {
-      this.metadataIsFetched = true
-    })
   }
 
   get currentTime() {
@@ -132,15 +140,17 @@ class Shisa {
     if (this.audio.paused) return
     this.audio.pause()
   }
+
+  destroy() {
+    this.audio.pause()
+    this.audio.src = ''
+    this.audio.load()
+    this.audio = null
+  }
 }
 
-Shisa.register = function(name, fn, options) {
-  if (!fn) {
-    throw new Error(`Component ${name} is not properly registered.`)
-  }
-  COMPS[name] = (el, audio, ctx) => {
-    fn(el, audio, ctx, options)
-  }
+Shisa.register = function(name, fn) {
+  REGISTERED_COMPS[name] = fn
 }
 
 export default Shisa

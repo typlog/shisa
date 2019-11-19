@@ -1,12 +1,15 @@
-export default function buffering(el, audio, ctx) {
+export default function buffering(el, shisa) {
   const name = 'data-buffering'
-  ctx.on('canplaythrough', () => {
+  shisa.on('canplaythrough', () => {
     el.removeAttribute(name)
+    shisa.el.classList.remove('shisa_buffering')
   })
-  ctx.on('waiting', () => {
+  shisa.on('waiting', () => {
     el.setAttribute(name, '')
+    shisa.el.classList.add('shisa_buffering')
   })
-  ctx.on('seeking', () => {
+  shisa.on('seeking', () => {
     el.setAttribute(name, '')
+    shisa.el.classList.add('shisa_buffering')
   })
 }

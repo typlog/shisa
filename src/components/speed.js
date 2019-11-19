@@ -4,12 +4,12 @@ const _CONFIG = {
   step: 0.25,
 }
 
-export default function speed(el, audio, ctx, options = {}) {
+export default function speed(el, shisa) {
   const name = 'data-speed'
 
-  ctx.on('ratechange', () => {
-    el.setAttribute(name, ctx.speed)
-    el.textContent = numToString(ctx.speed)
+  shisa.on('ratechange', () => {
+    el.setAttribute(name, shisa.speed)
+    el.textContent = numToString(shisa.speed)
   })
 
   const rawData = {
@@ -19,7 +19,7 @@ export default function speed(el, audio, ctx, options = {}) {
   }
 
   const speedOptions = Object.keys(rawData).reduce((arr, k) => {
-    arr[k] = rawData[k] && !isNaN(+rawData[k]) ? +rawData[k] : options[k] || _CONFIG[k]
+    arr[k] = rawData[k] && !isNaN(+rawData[k]) ? +rawData[k] : _CONFIG[k]
     if (rawData[k] !== arr[k]) {
       el.setAttribute(`${name}-${k}`, arr[k])
     }
@@ -28,13 +28,13 @@ export default function speed(el, audio, ctx, options = {}) {
 
   let speed = el.getAttribute(name)
   if ((!speed || typeof +speed !== 'number') && speed !== 0) {
-    speed = audio.defaultPlaybackRate
+    speed = shisa.audio.defaultPlaybackRate
   }
-  ctx.speed = Math.max(speedOptions.min, Math.min(speed, speedOptions.max))
-  el.textContent = numToString(ctx.speed)
+  shisa.speed = Math.max(speedOptions.min, Math.min(speed, speedOptions.max))
+  el.textContent = numToString(shisa.speed)
 
   el.addEventListener('click', () => {
-    ctx.speed = ctx.speed === speedOptions.max ? speedOptions.min : Math.min(speedOptions.max, Math.max(speedOptions.min, ctx.speed + speedOptions.step))
+    shisa.speed = shisa.speed >= speedOptions.max ? speedOptions.min : Math.min(speedOptions.max, Math.max(speedOptions.min, shisa.speed + speedOptions.step))
   })
 }
 
