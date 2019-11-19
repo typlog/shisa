@@ -6,10 +6,11 @@ const _CONFIG = {
 
 export default function speed(el, shisa) {
   const name = 'data-speed'
+  el.classList.add('shisa-speed')
 
   shisa.on('ratechange', () => {
     el.setAttribute(name, shisa.speed)
-    el.textContent = numToString(shisa.speed)
+    el.textContent = numToString(shisa.speed) + 'x'
   })
 
   const rawData = {
@@ -31,7 +32,7 @@ export default function speed(el, shisa) {
     speed = shisa.audio.defaultPlaybackRate
   }
   shisa.speed = Math.max(speedOptions.min, Math.min(speed, speedOptions.max))
-  el.textContent = numToString(shisa.speed)
+  el.textContent = numToString(shisa.speed) + 'x'
 
   el.addEventListener('click', () => {
     shisa.speed = shisa.speed >= speedOptions.max ? speedOptions.min : Math.min(speedOptions.max, Math.max(speedOptions.min, shisa.speed + speedOptions.step))

@@ -32,10 +32,10 @@ class Shisa {
     this.el.classList.add('shisa')
     this.events = new Events()
     this.audio = new Audio()
+    Object.assign(this.audio, DEFAULT_AUDIO_CONFIG, options)
     this.audio.src = src
+    this.el.classList.add('shisa_ready')
     this.metadataIsFetched = false
-    this._initOptions(options)
-    this._clearDOM()
 
     const els = this.el.querySelectorAll('[data-shisa]')
     for (let i = 0; i < els.length; i++) {
@@ -55,20 +55,6 @@ class Shisa {
     const fn = BUILTIN_COMPS[name] || REGISTERED_COMPS[name]
     if (fn) {
       fn(el, this)
-    }
-  }
-
-  _initOptions(options) {
-    this.audio.preload = options.preload || DEFAULT_AUDIO_CONFIG.preload
-    this.audio.autoplay = options.autoplay || DEFAULT_AUDIO_CONFIG.autoplay
-    this.audio.defaultMuted = options.defaultMuted || DEFAULT_AUDIO_CONFIG.defaultMuted
-    this.audio.defaultPlaybackRate = options.defaultPlaybackRate || DEFAULT_AUDIO_CONFIG.defaultPlaybackRate
-  }
-
-  _clearDOM() {
-    const els = this.el.querySelectorAll('audio')
-    for (let i = 0; i < els.length; i++) {
-      els[i].remove()
     }
   }
 

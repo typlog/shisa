@@ -5,6 +5,18 @@
   height: 20px;
   cursor: pointer;
 }
+.shisa_progress::before {
+  content: '';
+  display: block;
+  position: absolute;
+  top: 8px;
+  height: 4px;
+  left: 0;
+  right: 0px;
+  border-radius: 5px;
+  border: none;
+  background: #eee;
+}
 .shisa_progress_play {
   position: absolute;
   left: 0;

@@ -8,7 +8,7 @@
     "build:iife": "FORMAT=iife rollup -c",
     "build:cjs": "FORMAT=cjs rollup -c",
     "test": "test",
-    "dev": "parcel serve ./dist/index.html -d parcel",
+    "dev": "parcel serve ./debug/index.html -d parcel",
     "lint": "eslint --fix src"
   },
   "repository": {

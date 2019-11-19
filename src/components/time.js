@@ -1,4 +1,5 @@
 export default function controlTime(el, shisa) {
+  el.classList.add('shisa-time')
   const attr = Array.from(el.attributes).find(v => {
     return /data-time-/.test(v.name)
   })
@@ -7,11 +8,13 @@ export default function controlTime(el, shisa) {
   const type = attr.name.slice(10)
   if (type === 'current') {
     attr.value = el.textContent = secondToTime(shisa.currentTime)
+    el.classList.add('shisa-time_current')
     shisa.on('timeupdate', () => {
       attr.value = el.textContent = secondToTime(shisa.currentTime)
     })
   } else if (type === 'duration') {
     attr.value = el.textContent = '--:--'
+    el.classList.add('shisa-time_duration')
     shisa.on('loadedmetadata', () => {
       if (shisa.metadataIsFetched && shisa.duration) {
         attr.value = el.textContent = secondToTime(shisa.duration)

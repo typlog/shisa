@@ -6,21 +6,22 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Shisa demo</title>
   <link rel="stylesheet" href="index.css">
+  <link rel="stylesheet" href="../dist/shisa.min.css">
 </head>
 <body>
   <div class="player" data-preload="none">
-    <div cla>
-      <button data-shisa="play" data-play>play/pause</button>
+    <div class="play">
+      <button data-shisa="play"></button>
     </div>
     <div class="mute">
-      <button data-shisa="mute">mute</button>
+      <button data-shisa="mute"></button>
     </div>
     <div class="speed">
       <button data-shisa="speed" data-speed-max="3" data-speed-min="1" data-speed-step="0.5">speed</button>
-      <button data-shisa="speed" data-speed-max="5" data-speed-min="3" data-speed-step="1">speed</button>
+      <button data-shisa="speed" data-speed-max="5" data-speed-min="1" data-speed-step="1">speed</button>
     </div>
     <div class="status">
-      <div data-shisa="buffering">buffering</div>
+      <div data-shisa="spinner"></div>
     </div>
     <div class="seek">
       <button data-shisa="seek" data-seek-forward="30">+30s</button>

@@ -4,37 +4,37 @@ export default function progress(el, shisa) {
     buffer: null,
     play: null
   }
-  el.classList.add('shisa_progress')
+  el.classList.add('shisa-progress')
 
   Object.keys(bar).forEach(k => {
     bar[k] = document.createElement('div')
-    bar[k].classList.add(`shisa_progress_${k}`)
+    bar[k].classList.add(`shisa-progress_${k}`)
     bar[k].setAttribute('aria-role', 'progressbar')
     bar[k].setAttribute('aria-readonly', '')
     bar[k].setAttribute('aria-valuemin', 0)
     bar[k].setAttribute('aria-valuemax', 1)
     el.append(bar[k])
-    setWidth(bar[k], `${name}-${k}`, 0)
+    setWidth(bar[k], 0)
   })
 
   shisa.on('progress', () => {
     if (shisa.metadataIsFetched && shisa.duration) {
       const value = shisa.audio.buffered.length ? shisa.audio.buffered.end(shisa.audio.buffered.length - 1) / shisa.duration : 0
-      setWidth(bar.buffer, `${name}-buffer`, value)
+      setWidth(bar.buffer, value)
     }
   })
 
   shisa.on('loadedmetadata', () => {
     if (shisa.metadataIsFetched && shisa.duration) {
       const value = shisa.audio.currentTime / shisa.duration
-      setWidth(bar.play, `${name}-play`, value)
+      setWidth(bar.play, value)
     }
   })
 
   shisa.on('timeupdate', () => {
     if (shisa.metadataIsFetched && shisa.duration) {
       const value = shisa.audio.currentTime / shisa.duration
-      setWidth(bar.play,`${name}-play`, value)
+      setWidth(bar.play, value)
     }
   })
 
@@ -84,8 +84,7 @@ export default function progress(el, shisa) {
   })
  }
 
-function setWidth(el, attr, value) {
-  el.setAttribute(attr, value)
+function setWidth(el, value) {
   el.style.width = `${value * 100}%`
   el.setAttribute('aria-valuenow', value)
 }

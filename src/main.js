@@ -1,3 +1,6 @@
+import progress from './css/progress.css'
 import Shisa from './Shisa'
-/** CONSOLE_MSG */
+
 export default Shisa
+
+/** CONSOLE_MSG */

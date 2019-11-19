@@ -4,6 +4,7 @@ const _CONFIG = {
 }
 
 export default function seek(el, shisa) {
+  el.classList.add('shisa-seek')
   const attr = Array.from(el.attributes).find(v => {
     return /data-seek-/.test(v.name)
   })
