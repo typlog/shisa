@@ -2,7 +2,7 @@ import Events from './events'
 import play from './components/play'
 import mute from './components/mute'
 import speed from './components/speed'
-import buffering from './components/buffering'
+import spinner from './components/spinner'
 import time from './components/time'
 import seek from './components/seek'
 import progress from './components/progress'
@@ -11,7 +11,7 @@ const BUILTIN_COMPS = {
   play,
   mute,
   speed,
-  buffering,
+  spinner,
   time,
   seek,
   progress,

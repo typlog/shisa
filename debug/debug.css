@@ -1,0 +1,77 @@
+@import '../src/css/default.css';
+
+:root {
+  --color-theme: #555;
+}
+body {
+  background-color: #eee;
+  color: var(--color-theme);
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  font-size: 16px;
+  line-height: 1.42;
+  font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen-Sans,Ubuntu,Cantarell,"Helvetica Neue",sans-serif;
+}
+.player {
+  position: relative;
+  width: 80%;
+  min-width: 300px;
+  height: 120px;
+  border: none;
+  border-radius: 3px;
+  background-color: #fff;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+  box-sizing: border-box;
+  padding: 20px;
+}
+.player .main {
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+}
+.player .shisa-play {
+  margin-right: 20px;
+  flex-shrink: 0;
+}
+.player .shisa-progress {
+  flex-grow: 1;
+}
+.player .shisa-progress_slider {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+}
+.player .shisa-progress_slider {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+}
+.player .shisa-progress_slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+}
+.player .actions {
+  margin: 0 auto 0 68px;
+  min-width: 200px;
+  max-width: 300px;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  align-items: center;
+}
+.player .time {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  font-size: 0.8em;
+}
+.player .shisa-time_current::after {
+  display: inline;
+  content: '/';
+  margin: 0.2em;
+}
+.spec p > span {
+  font-weight: bold;
+}
+.spec > p.desc {
+  font-size: 0.8em;
+  color: #555555;
+  margin: 0;
+}

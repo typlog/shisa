@@ -1,5 +1,6 @@
-import progress from './css/progress.css'
 import Shisa from './Shisa'
+
+window.Shisa = Shisa
 
 export default Shisa
 

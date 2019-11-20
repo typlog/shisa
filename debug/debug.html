@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Debug Shisa</title>
+  <link rel="stylesheet" href="./debug.css">
+</head>
+<body>
+  <p>This interface is for pure debug purpose.</p>
+  <section>
+    <h2>the player, in a minimal state</h2>
+    <div class="player">
+      <div class="main">
+        <button data-shisa="play"></button>
+        <div data-shisa="progress"></div>
+      </div>
+      <div class="actions">
+        <button data-shisa="mute"></button>
+        <button data-shisa="speed" data-speed-max="3" data-speed-min="0.5" data-speed-step="0.5" data-speed="1">speed</button>
+        <button data-shisa="seek" data-seek-backward="10"></button>
+        <button data-shisa="seek" data-seek-forward="10"></button>
+      </div>
+      <div class="time">
+        <div data-shisa="spinner"></div>
+        <span data-shisa="time" data-time-current></span>
+        <span data-shisa="time" data-time-duration></span>
+      </div>
+    </div>
+  </section>
+  <section class="spec">
+    <h2>specifications</h2>
+    <p>Audio source: <span class="spec_src"></span></p>
+    <p>Audio preoload: <span class="spec_preload"></span></p>
+    <p>Audio is muted by default: <span class="spec_def-muted"></span></p>
+    <p>Audio playback rate by default: <span class="spec_def-speed"></span></p>
+    <p>Audio is muted: <span class="spec_muted"></span></p>
+    <p>Audio playback rate specs (determined by each individual <code>[data-shisa=speed]</code> element):
+      max:
+      <span class="spec_speed_max"></span>;
+      min:
+      <span class="spec_speed_min"></span>;
+      step:
+      <span class="spec_speed_step"></span>;
+    </p>
+    <p>Audio playback rate: <span class="spec_speed"></span></p>
+    <p>Audio current time: <span class="spec_current"></span></p>
+    <p>Audio duration: <span class="spec_duration"></span></p>
+    <span></span>
+    <p>Fired audio events (<code>timeupdate</code> prints every 5 sec): <span class="spec_event"></span></p>
+  </section>
+  <script src="../src/main.js"></script>
+  <script>
+    const Shisa = window.Shisa
+    const playerEl = document.querySelector('.player')
+    const player = new Shisa(
+      playerEl,
+      'https://v.typcdn.com/byebyephotography/8434636648_115106.mp3'
+    )
+    const src = document.querySelector('.spec_src')
+    const preload = document.querySelector('.spec_preload')
+    const defMuted = document.querySelector('.spec_def-muted')
+    const defSpeed = document.querySelector('.spec_def-speed')
+    const muted = document.querySelector('.spec_muted')
+    const speed = document.querySelector('.spec_speed')
+    const speedMax = document.querySelector('.spec_speed_max')
+    const speedMin = document.querySelector('.spec_speed_min')
+    const speedStep = document.querySelector('.spec_speed_step')
+    const current = document.querySelector('.spec_current')
+    const duration = document.querySelector('.spec_duration')
+    const event = document.querySelector('.spec_event')
+    src.textContent = player.audio.src
+    preload.textContent = player.audio.preload
+    defMuted.textContent = player.audio.defaultMuted
+    defSpeed.textContent = player.audio.defaultPlaybackRate
+    muted.textContent = player.audio.muted
+    speedMax.textContent = playerEl.querySelector('[data-shisa=speed]').getAttribute('data-speed-max')
+    speedMin.textContent = playerEl.querySelector('[data-shisa=speed]').getAttribute('data-speed-min')
+    speedStep.textContent = playerEl.querySelector('[data-shisa=speed]').getAttribute('data-speed-step')
+    speed.textContent = player.audio.playbackRate
+    current.textContent = player.audio.currentTime
+    duration.textContent = player.audio.duration
+    event.textContent = `\r\n`
+
+    const events = player.events.audioEvents
+    let cooldown = false
+    for (let i = 0; i < events.length; i++) {
+      player.on(`${events[i]}`, () => {
+        if (events[i] === 'timeupdate') {
+            current.textContent = player.audio.currentTime
+          if (!cooldown) {
+            cooldown = true
+            event.textContent += `${events[i]};\n `
+            setTimeout(() => {
+              cooldown = false
+            },5000)
+          }
+        } else {
+          event.textContent += `${events[i]};\n `
+        }
+      })
+    }
+    player.on('loadedmetadata', () => {
+      duration.textContent = player.audio.duration
+    })
+    player.on('ratechange', () => {
+      speed.textContent = player.audio.playbackRate
+    })
+    player.on('volumechange', () => {
+      muted.textContent = player.audio.muted
+    })
+  </script>
+</body>
+</html>

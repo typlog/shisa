@@ -39,13 +39,14 @@ export default function progress(el, shisa) {
   })
 
   shisa.on('ended', () => {
-    shisa.shisa.audio.currentTime = 0
+    shisa.audio.currentTime = 0
   })
 
   let initSeek = null
   let dragging = false
   const slider = document.createElement('input')
   slider.setAttribute(`${name}-slider`, '')
+  slider.classList.add('shisa-progress_slider')
   el.append(slider)
   slider.type = 'range'
   slider.min = 0

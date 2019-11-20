@@ -1,11 +1,20 @@
-
-.shisa_progress {
+:root {
+  --shisa-thumb-color: #555;
+  --shisa-thumb-border: 1px solid var(--shisa-thumb-color);
+  --shisa-thumb-border-radius: 5px;
+  --shisa-thumb-boxshadow: 0px 0px 0px #000000, 0px 0px 0px #0d0d0d;
+  --shisa-bar-color: #eee;
+  --shisa-bar-border-radius: 5px;
+  --shisa-bar-color-play: #555;
+  --shisa-bar-color-buffer: #bbb;
+}
+.shisa-progress {
   position: relative;
   width: 100%;
   height: 20px;
   cursor: pointer;
 }
-.shisa_progress::before {
+.shisa-progress::before {
   content: '';
   display: block;
   position: absolute;
@@ -13,32 +22,32 @@
   height: 4px;
   left: 0;
   right: 0px;
-  border-radius: 5px;
+  border-radius: var(--shisa-bar-border-radius);
   border: none;
-  background: #eee;
+  background: var(--shisa-bar-color);
 }
-.shisa_progress_play {
+.shisa-progress_play {
   position: absolute;
   left: 0;
   top: 8px;
   height: 4px;
-  border-radius: 5px;
-  background: #00A0FF;
+  border-radius: var(--shisa-bar-border-radius);
+  background: var(--shisa-bar-color-play);
   border: none;
   transition: all .05s ease-in;
 }
-.shisa_progress_buffer {
+.shisa-progress_buffer {
   position: absolute;
   left: 0;
   top: 8px;
   height: 4px;
-  border-radius: 5px;
-  background: #ddeeff;
+  border-radius: var(--shisa-bar-border-radius);
+  background: var(--shisa-bar-color-buffer);
   border: none;
   transition: all .05s ease-in;
 }
-.shisa_progress input[type=range] {
-  color: #00adfb;
+.shisa-progress_slider {
+  color: var(--shisa-thumb-color);
   width: 100%;
   appearance: none;
   margin: 7.5px 0;
@@ -46,23 +55,23 @@
   top: -7px;
   height: 20px;
   cursor: pointer;
-  background-color: rgba(0,0,0,0);
+  background-color: transparent;
 }
-.shisa_progress input[type=range]:focus {
+.shisa-progress_slider:focus {
   outline: none;
 }
-.shisa_progress input[type=range]::-webkit-slider-runnable-track {
+.shisa-progress_slider::-webkit-slider-runnable-track {
   width: 100%;
   height: 0px;
   cursor: pointer;
   box-shadow: 0px 0px 0px rgba(0, 0, 0, 0), 0px 0px 0px rgba(13, 13, 13, 0);
-  background: #0075a9;
+  background: transparent;
   border-radius: 0px;
-  border: 0px solid #010101;
+  border: none;
 }
-.shisa_progress input[type=range]::-webkit-slider-thumb {
-  box-shadow: 0px 0px 0px #000000, 0px 0px 0px #0d0d0d;
-  border: 1px solid currentColor;
+.shisa-progress_slider::-webkit-slider-thumb {
+  box-shadow: var(--shisa-thumb-boxshadow);
+  border: var(--shisa-thumb-border);
   height: 15px;
   width: 15px;
   border-radius: 16px;
@@ -71,50 +80,50 @@
   appearance: none;
   margin-top: -7.5px;
 }
-.shisa_progress input[type=range]:focus::-webkit-slider-runnable-track {
-background: #00adfb;
+.shisa-progress_slider:focus::-webkit-slider-runnable-track {
+  background: transparent;
 }
-.shisa_progress input[type=range]::-moz-range-track {
+.shisa-progress_slider::-moz-range-track {
   width: 100%;
   height: 0px;
   cursor: pointer;
   box-shadow: 0px 0px 0px rgba(0, 0, 0, 0), 0px 0px 0px rgba(13, 13, 13, 0);
-  background: #0075a9;
+  background: transparent;
   border-radius: 0px;
-  border: 0px solid #010101;
+  border: none;
 }
-.shisa_progress input[type=range]::-moz-range-thumb {
-  box-shadow: 0px 0px 0px #000000, 0px 0px 0px #0d0d0d;
-  border: 1px solid currentColor;
+.shisa-progress_slider::-moz-range-thumb {
+  box-shadow: var(--shisa-thumb-boxshadow);
+  border: var(--shisa-thumb-border);
   height: 15px;
   width: 15px;
   border-radius: 16px;
   background: currentColor;
   cursor: pointer;
 }
-.shisa_progress input[type=range]::-ms-track {
+.shisa-progress_slider::-ms-track {
   width: 100%;
   height: 0px;
   cursor: pointer;
   background: transparent;
-  border-color: transparent;
+  border: none;
   color: transparent;
 }
-.shisa_progress input[type=range]::-ms-fill-lower {
-  background: #003d57;
-  border: 0px solid #010101;
+.shisa-progress_slider::-ms-fill-lower {
+  background: transparent;
+  border: none;
   border-radius: 0px;
   box-shadow: 0px 0px 0px rgba(0, 0, 0, 0), 0px 0px 0px rgba(13, 13, 13, 0);
 }
-.shisa_progress input[type=range]::-ms-fill-upper {
-  background: #0075a9;
-  border: 0px solid #010101;
+.shisa-progress_slider::-ms-fill-upper {
+  background: var(--shisa-thumb-color);
+  border: none;
   border-radius: 0px;
   box-shadow: 0px 0px 0px rgba(0, 0, 0, 0), 0px 0px 0px rgba(13, 13, 13, 0);
 }
-.shisa_progress input[type=range]::-ms-thumb {
-  box-shadow: 0px 0px 0px #000000, 0px 0px 0px #0d0d0d;
-  border: 1px solid currentColor;
+.shisa-progress_slider::-ms-thumb {
+  box-shadow: var(--shisa-thumb-boxshadow);
+  border: var(--shisa-thumb-border);
   height: 15px;
   width: 15px;
   border-radius: 16px;
