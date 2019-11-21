@@ -1,2 +1,6 @@
 @import './play.css';
+@import './mute.css';
+@import './seek.css';
+@import './speed.css';
+@import './spinner.css';
 @import './progress.css';

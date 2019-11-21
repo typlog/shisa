@@ -1,0 +1,60 @@
+@keyframes rotate {
+  to {
+    transform: rotate(360deg);
+  }
+}
+.shisa-spinner {
+  display: none;
+  width: 18px;
+  height: 18px;
+  color: currentColor;
+  animation: rotate 1.4s linear infinite;
+}
+.shisa-spinner,
+.shisa-spinner::before,
+.shisa-spinner::after {
+  border-radius: 50%;
+}
+.shisa-spinner {
+  color: currentColor;
+  font-size: 11px;
+  text-indent: -99999em;
+  margin: 55px auto;
+  position: relative;
+  width: 10em;
+  height: 10em;
+  box-shadow: inset 0 0 0 1em;
+  transform: translateZ(0);
+}
+.shisa-spinner:before,
+.shisa-spinner:after {
+  position: absolute;
+  content: '';
+}
+.shisa-spinner:before {
+  width: 5.2em;
+  height: 10.2em;
+  background: #fff;
+  border-radius: 10.2em 0 0 10.2em;
+  top: -0.1em;
+  left: -0.1em;
+  -webkit-transform-origin: 5.2em 5.1em;
+  transform-origin: 5.2em 5.1em;
+  -webkit-animation: load2 2s infinite ease 1.5s;
+  animation: load2 2s infinite ease 1.5s;
+}
+.shisa-spinner:after {
+  width: 5.2em;
+  height: 10.2em;
+  background: #fff;
+  border-radius: 0 10.2em 10.2em 0;
+  top: -0.1em;
+  left: 5.1em;
+  -webkit-transform-origin: 0px 5.1em;
+  transform-origin: 0px 5.1em;
+  -webkit-animation: load2 2s infinite ease;
+  animation: load2 2s infinite ease;
+}
+.shisa-spinner.shisa-spinner_spinning {
+  display: inline-block;
+}
