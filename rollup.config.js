@@ -1,5 +1,3 @@
-import postcss from 'rollup-plugin-postcss'
-import autoprefixer from 'autoprefixer'
 import minify from 'rollup-plugin-babel-minify'
 import replace from '@rollup/plugin-replace'
 import pkg from './package.json'
@@ -16,13 +14,6 @@ const plugins = [
     include: './src/main.js',
     delimiters: ['/** ', ' */'],
     'CONSOLE_MSG': CONSOLE_CODE,
-  }),
-  postcss({
-    extract: true,
-    minimize: true,
-    plugins: [
-      autoprefixer()
-    ],
   })
 ]
 

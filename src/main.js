@@ -1,5 +1,4 @@
 import Shisa from './Shisa'
-import './css/default.css'
 
 window.Shisa = Shisa
 
