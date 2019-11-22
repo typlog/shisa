@@ -5,8 +5,8 @@
   --shisa-thumb-boxshadow: 0px 0px 0px #000000, 0px 0px 0px #0d0d0d;
   --shisa-bar-color: #eee;
   --shisa-bar-border-radius: 5px;
-  --shisa-bar-color-play: #555;
-  --shisa-bar-color-buffer: #bbb;
+  --shisa-bar-play-color: #555;
+  --shisa-bar-buffer-color: #bbb;
 }
 .shisa-progress {
   position: relative;
@@ -32,7 +32,7 @@
   top: 8px;
   height: 4px;
   border-radius: var(--shisa-bar-border-radius);
-  background: var(--shisa-bar-color-play);
+  background: var(--shisa-bar-play-color);
   border: none;
   transition: all .05s ease-in;
 }
@@ -42,7 +42,7 @@
   top: 8px;
   height: 4px;
   border-radius: var(--shisa-bar-border-radius);
-  background: var(--shisa-bar-color-buffer);
+  background: var(--shisa-bar-buffer-color);
   border: none;
   transition: all .05s ease-in;
 }
