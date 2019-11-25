@@ -64,6 +64,10 @@ body {
   justify-content: space-between;
   align-items: center;
 }
+.player .actions button::before,
+.player .actions button::after {
+  font-size: 24px;
+}
 .player .time {
   position: absolute;
   top: 20px;

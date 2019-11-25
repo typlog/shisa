@@ -5,13 +5,13 @@ export default function play(el, shisa) {
 
   shisa.on('play', () => {
     el.setAttribute(name, 'play')
-    shisa.el.classList.add('shisa-play_playing')
-    shisa.el.classList.remove('shisa-play_paused')
+    shisa.el.classList.add('Playing')
+    shisa.el.classList.remove('Paused')
   })
   shisa.on('pause', () => {
     el.setAttribute(name, 'pause')
-    shisa.el.classList.add('shisa-play_paused')
-    shisa.el.classList.remove('shisa-play_playing')
+    shisa.el.classList.add('Paused')
+    shisa.el.classList.remove('Playing')
   })
 
   function toggle() {
