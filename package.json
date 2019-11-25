@@ -1,8 +1,8 @@
 {
   "name": "shisa",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "Build your own podcast player with desired structure and styles.",
-  "main": "./src/main.js",
+  "main": "./dist/shisa.cjs.js",
   "scripts": {
     "build": "npm run build:iife && npm run build:cjs && npm run build:css",
     "build:css": "node build/css.js",
