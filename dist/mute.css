@@ -1,0 +1,1 @@
+.shisa-mute{display:inline-block;background-color:transparent;border:none;padding:0;font-size:inherit;box-sizing:border-box}.shisa-mute:before{display:inline-block;content:"\e903"}.shisa-mute:after{display:none;content:"\e900"}.shisa-mute[data-muted]:before{display:none}.shisa-mute[data-muted]:after{display:inline-block}
