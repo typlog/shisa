@@ -25,7 +25,7 @@
       <div class="time">
         <div data-shisa="spinner"></div>
         <span data-shisa="time" data-time-current></span>
-        <span data-shisa="time" data-time-duration></span>
+        <span data-shisa="time" data-time-duration="2000"></span>
       </div>
     </div>
   </section>
@@ -56,7 +56,7 @@
     const playerEl = document.querySelector('.player')
     const player = new Shisa(
       playerEl,
-      'https://v.typcdn.com/byebyephotography/8434636648_115106.mp3'
+      'https://v.typcdn.com/byebyephotography/8434636648_115106.mp3',
     )
     const src = document.querySelector('.spec_src')
     const preload = document.querySelector('.spec_preload')

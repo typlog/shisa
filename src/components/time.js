@@ -7,13 +7,30 @@ export default function controlTime(el, shisa) {
 
   const type = attr.name.slice(10)
   if (type === 'current') {
+    if (attr.value) {
+      shisa.seek(attr.value)
+    }
+
     attr.value = el.textContent = secondToTime(shisa.currentTime)
     el.classList.add('shisa-time_current')
+
     shisa.on('timeupdate', () => {
-      attr.value = el.textContent = secondToTime(shisa.currentTime)
+      if (!shisa.dragging) {
+        attr.value = el.textContent = secondToTime(shisa.currentTime)
+      }
+    })
+    shisa.on('drag', () => {
+      if (shisa.progressTime !== null) {
+        attr.value = el.textContent = secondToTime(shisa.progressTime)
+      }
     })
   } else if (type === 'duration') {
-    attr.value = el.textContent = '--:--'
+    if (attr.value) {
+      shisa.initDuration = +attr.value
+      el.textContent = secondToTime(shisa.duration)
+    } else {
+      attr.value = el.textContent = '--:--'
+    }
     el.classList.add('shisa-time_duration')
     shisa.on('loadedmetadata', () => {
       if (shisa.metadataIsFetched && shisa.duration) {

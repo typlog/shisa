@@ -4,6 +4,7 @@ export default function progress(el, shisa) {
     buffer: null,
     play: null
   }
+  const dragEvent = new Event('drag')
   el.classList.add('shisa-progress')
 
   Object.keys(bar).forEach(k => {
@@ -42,8 +43,6 @@ export default function progress(el, shisa) {
     shisa.audio.currentTime = 0
   })
 
-  let initSeek = null
-  let dragging = false
   const slider = document.createElement('input')
   slider.setAttribute(`${name}-slider`, '')
   slider.classList.add('shisa-progress_slider')
@@ -54,31 +53,35 @@ export default function progress(el, shisa) {
   slider.value = 0
   slider.step = 0.01
 
+
   slider.addEventListener('input', () => {
-    if (!dragging) {
-      dragging = true
+    shisa.progressTime = slider.value / slider.max * shisa.duration
+    shisa.el.dispatchEvent(dragEvent)
+    if (!shisa.dragging) {
+      shisa.dragging = true
+      slider.setAttribute('value', slider.value)
     }
   })
 
   slider.addEventListener('change', () => {
-    if (dragging) {
-      dragging = false
+    if (shisa.dragging) {
+      shisa.dragging = false
     }
-    if (shisa.metadataIsFetched && shisa.duration) {
-      shisa.seek(slider.value / slider.max * shisa.duration)
-      slider.setAttribute('value', slider.value)
+    if (shisa.progressTime) {
+      shisa.seek(shisa.progressTime)
+      shisa.progressTime = null
     } else {
-      initSeek = slider.value
+      shisa.initSeek = slider.value
     }
   })
   shisa.on('canplay', () => {
-    if (initSeek && shisa.duration) {
-      shisa.seek(initSeek / slider.max * shisa.duration)
-      initSeek = null
+    if (shisa.initSeek && shisa.duration) {
+      shisa.seek(shisa.initSeek / slider.max * shisa.duration)
+      shisa.initSeek = null
     }
   })
   shisa.on('timeupdate', () => {
-    if (!dragging) {
+    if (!shisa.dragging) {
       slider.value = shisa.currentTime / shisa.duration * slider.max
       slider.setAttribute('value', slider.value)
     }

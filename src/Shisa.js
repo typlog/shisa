@@ -30,6 +30,9 @@ class Shisa {
   constructor(el, src, options = {}) {
     this.el = el
     this.el.classList.add('shisa')
+    this.initDuration = NaN
+    this.initSeek = null
+    this.dragging = false
     this.events = new Events()
     this.audio = new Audio()
     Object.assign(this.audio, DEFAULT_AUDIO_CONFIG, options)
@@ -45,6 +48,11 @@ class Shisa {
     this._initEvents()
     this.events.audioEvents.forEach(name => {
       this.audio.addEventListener(name, (e) => {
+        this.events.trigger(name, e)
+      })
+    })
+    this.events.playerEvents.forEach(name => {
+      this.el.addEventListener(name, (e) => {
         this.events.trigger(name, e)
       })
     })
@@ -77,7 +85,11 @@ class Shisa {
   }
 
   get duration() {
-    return this.audio.duration
+    if (this.audio.duration) {
+      return this.audio.duration
+    } else {
+      return this.initDuration
+    }
   }
 
   get muted() {
